@@ -1,7 +1,5 @@
 //utility function to fetch the user's IP address
-export async function getIpAddress(): Promise<
-  [string | null, Error | null]
-> {
+export async function getIpAddress(): Promise<[string | null, Error | null]> {
   try {
     const response = await fetch("https://api.ipify.org?format=json");
     const data = await response.json();

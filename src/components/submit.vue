@@ -90,7 +90,7 @@ export default Vue.extend({
 });
 </script>
 <template>
-   <div>
+  <div>
     <p v-if="errorMsg" class="text-danger">{{ errorMsg }}</p>
     <b-button
       @click="handleClick"
