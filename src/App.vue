@@ -5,8 +5,7 @@ export default Vue.extend({
 });
 </script>
 <template>
-  <!-- TODO provide a responsive container for all views so the form renders on mobile and desktop appropriately -->
-  <div id="app">
+  <div id="app" class="container">
     <router-view :key="$route.path" />
   </div>
 </template>
