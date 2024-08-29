@@ -8,6 +8,9 @@ import TextComponent from "@/components/text.vue";
 import SubmitComponent from "./components/submit.vue";
 import FormView from "@/views/FormView.vue";
 import "bootstrap/dist/css/bootstrap.css";
+import InputComponent from "./components/input.vue";
+import addressComponent from "./components/address.vue";
+import MainView from "@/views/MainView.vue";
 
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
@@ -18,9 +21,12 @@ new Vue({
   render: (h) => h(App),
   components: {
     App,
+    InputComponent,
+    addressComponent,
     FormComponent,
     TextComponent,
     SubmitComponent,
     FormView,
+    MainView,
   },
 }).$mount("#app");
