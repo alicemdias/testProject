@@ -52,17 +52,15 @@ export default Vue.extend({
     <div class="border p-3 rounded bg-dark text-white shadow-lg mb-4">
       <!-- Form group label that displays the text that will be shown as the label.-->
       <b-form-group :for="name">{{ label }}</b-form-group>
-      <!-- Input field -->
       <b-form-input
         :type="type"
+        :class="[classes]"
         :value="value"
         @input="$emit('input', $event)"
         :list="showOptions ? 'postcode-options' : null"
-        :class="[classes]"
         :required="required"
         autocomplete="off"
       />
-      <!-- Autocomplete postcode -->
       <datalist id="postcode-options" v-if="showOptions">
         <option v-for="option in options" :key="option" :value="option">
           {{ option }}

@@ -11,7 +11,6 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
-    //Flag to determine which type of submission should be handled - click event (false) or submit (true)
     isFormSubmission: {
       type: Boolean,
       default: false,
