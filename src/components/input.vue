@@ -1,7 +1,6 @@
 <script lang="ts">
 import Vue from "vue";
 export default Vue.extend({
-  name: "InputComponent",
   props: {
     name: {
       type: String,
@@ -30,7 +29,6 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
-    //Props for options - utilized for postcode autocompletion
     options: {
       type: Array,
       default: () => [],
