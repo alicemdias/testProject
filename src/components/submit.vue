@@ -25,7 +25,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapGetters(["user", "addresses", "isValidAddressHistory"]),
+    ...mapGetters(["user", "addresses", "isAddressHistoryValid"]),
   },
   methods: {
     ...mapActions(["createClaimAction"]),
