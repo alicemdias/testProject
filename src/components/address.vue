@@ -6,7 +6,6 @@ import { getPostcode } from "@/core/getPostcode";
 import { Address } from "@/types";
 export default Vue.extend({
   name: "AddressComponent",
-  //Respecting PascalCase
   components: {
     InputComponent,
   },
@@ -17,16 +16,15 @@ export default Vue.extend({
   },
   computed: {
     ...(mapGetters([
-      "userAddresses", //user's addresses
-      "additionalAddressesNeeded", //aditional addresses if the date moved in is less than 3 years ago, then the user should be provided with the option to add a second address
-      "isAddressHistoryValid", //check if it's more than 3 years
+      "addresses",
+      "needMoreAddresses",
+      "isValidAddressHistory",
     ]) as {
-      userAddresses: () => Address[];
-      additionalAddressesNeeded: () => boolean; //true or false
-      isAddressHistoryValid: () => boolean; //true or false
+      addresses: () => Address[];
+      needMoreAddresses: () => boolean;
+      isValidAddressHistory: () => boolean;
     }),
   },
-  //used the Spread Operator to allow me to add it all together, otherwise it would one on each line
   methods: {
     addEntry() {
       const nextAddress = { line1: "", postcode: "", dateMovedIn: "" };
@@ -44,7 +42,7 @@ export default Vue.extend({
     //postcode requires own update method due to autocompletion from API
     async updatePostcode(index: number, postcode: string) {
       this.postcodeAutocomplete(postcode, index);
-      this.updateAddress(index, { ...this.userAddresses[index], postcode });
+      this.updateAddress(index, { ...this.addresses[index], postcode });
     },
     async postcodeAutocomplete(postcode: string, index: number) {
       if (!postcode.trim()) {
@@ -54,7 +52,6 @@ export default Vue.extend({
       }
       const [results, error] = await getPostcode(postcode);
       if (error) {
-        // eslint-disable-next-line
         console.error(error);
         return;
       }
@@ -66,7 +63,7 @@ export default Vue.extend({
 <template>
   <b-container>
     <div
-      v-for="(address, index) in userAddresses"
+      v-for="(address, index) in addresses"
       :key="index"
       class="border p-3 rounded shadow-sm mb-4"
     >
@@ -99,13 +96,13 @@ export default Vue.extend({
         :required="true"
         class="mb-3"
       />
-      <b-button @click="removeEntry(index)" v-if="userAddresses.length > 1"
+      <b-button @click="removeEntry(index)" v-if="addresses.length > 1"
         >Remove Address</b-button
       >
     </div>
     <b-button
       @click="addEntry"
-      v-if="additionalAddressesNeeded && !isAddressHistoryValid"
+      v-if="needMoreAddresses && !isValidAddressHistory"
       class="float-end"
       >Add Address</b-button
     >

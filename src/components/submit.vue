@@ -1,8 +1,8 @@
 <script lang="ts">
-import Vue from "vue";
 import { createClaim } from "@/core/createClaim";
-import { getIpAddress } from "@/core/getIpAddress";
+import { getUserIpAddress } from "@/core/getUserIpAddress";
 import { Address } from "@/types";
+import Vue from "vue";
 import { mapActions, mapGetters } from "vuex";
 export default Vue.extend({
   name: "SubmitComponent",
@@ -25,7 +25,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapGetters(["user", "addresses", "isAddressHistoryValid"]),
+    ...mapGetters(["user", "addresses", "isValidAddressHistory"]),
   },
   methods: {
     ...mapActions(["createClaimAction"]),
@@ -61,7 +61,7 @@ export default Vue.extend({
         //Define the parameters for the createClaim function
         const userId = this.user.id;
         const claimData = { addresses: this.addresses };
-        const [creationIpAddress, ipErrorMsg] = await getIpAddress();
+        const [creationIpAddress, ipErrorMsg] = await getUserIpAddress();
         //If unable to retrieve IP address, log the error but proceed with submitting the claim to not hinder the user's experience.
         //If IP address is required, a return can be placed in the if statement to prevent submission and an error message displayed for the user to try again.
         if (ipErrorMsg) {

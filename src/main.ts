@@ -7,10 +7,10 @@ import FormComponent from "@/components/form.vue";
 import TextComponent from "@/components/text.vue";
 import SubmitComponent from "./components/submit.vue";
 import FormView from "@/views/FormView.vue";
-import "bootstrap/dist/css/bootstrap.css";
 import InputComponent from "./components/input.vue";
 import AddressComponent from "./components/address.vue";
 import MainView from "@/views/MainView.vue";
+import "bootstrap/dist/css/bootstrap.css";
 
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);

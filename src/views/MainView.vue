@@ -4,10 +4,9 @@ import FormComponent from "@/components/form.vue";
 import TextComponent from "@/components/text.vue";
 import InputComponent from "@/components/input.vue";
 import SubmitComponent from "@/components/submit.vue";
-import { mapState } from "vuex";
-
+import { mapGetters, mapState } from "vuex";
 export default Vue.extend({
-  name: "HomeView",
+  name: "MainView",
   components: {
     FormComponent,
     TextComponent,
@@ -21,8 +20,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapState({
-      // eslint-disable-next-line
-      userError: (state: any) => state.userError,
+      userError: (state: any) => state.userError, // Accessing Vuex state directly
     }),
   },
   methods: {

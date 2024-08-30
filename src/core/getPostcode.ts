@@ -1,4 +1,3 @@
-//utility function to get postcode from API
 export async function getPostcode(
   postcode: string
 ): Promise<[string[] | null, Error | null]> {
@@ -12,8 +11,7 @@ export async function getPostcode(
     const data = await response.json();
     return [data.result || [], null];
   } catch (error) {
-    // eslint-disable-next-line
-    console.error("Error fetching postcodes:", error);
+    console.error("Error fetching postcodes:", error); // Add more logging
     return [null, new Error("Unable to retrieve postcodes")];
   }
 }

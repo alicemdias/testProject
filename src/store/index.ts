@@ -13,6 +13,30 @@ export default new Vuex.Store<State>({
     claims: [] as Claim[],
     userError: "",
   },
+  getters: {
+    user(state): User | null {
+      return state.user;
+    },
+    addresses(state): Address[] {
+      return state.addresses;
+    },
+    needMoreAddresses(state): boolean {
+      return state.addresses.length < 3;
+    },
+    //Method that checks if the address history is valid - either greater than 3 years OR 3 addresses
+    isValidAddressHistory(state): boolean {
+      if (state.addresses.length === 0) return false;
+      //Validation for address length
+      if (state.addresses.length > 2) return true;
+
+      //Validation for address date > 3 years
+      const lastAddress = state.addresses[state.addresses.length - 1];
+      const lastDate = new Date(lastAddress.dateMovedIn);
+      const threeYearsAgo = new Date();
+      threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3);
+      return lastDate <= threeYearsAgo;
+    },
+  },
   mutations: {
     setUser(state, user: User) {
       state.user = user;
@@ -68,30 +92,6 @@ export default new Vuex.Store<State>({
       } catch (error) {
         return [null, error as Error];
       }
-    },
-  },
-  getters: {
-    user(state): User | null {
-      return state.user;
-    },
-    addresses(state): Address[] {
-      return state.addresses;
-    },
-    needMoreAddresses(state): boolean {
-      return state.addresses.length < 3;
-    },
-    //Method that checks if the address history is valid - either greater than 3 years OR 3 addresses
-    isAddressHistoryValid(state): boolean {
-      if (state.addresses.length === 0) return false;
-      //Validation for address length
-      if (state.addresses.length > 2) return true;
-
-      //Validation for address date > 3 years
-      const lastAddress = state.addresses[state.addresses.length - 1];
-      const lastDate = new Date(lastAddress.dateMovedIn);
-      const threeYearsAgo = new Date();
-      threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3);
-      return lastDate <= threeYearsAgo;
     },
   },
   modules: {},

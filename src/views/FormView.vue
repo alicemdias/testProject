@@ -15,9 +15,9 @@ export default Vue.extend({
     AddressComponent,
   },
   computed: {
-    ...(mapGetters(["user", "isAddressHistoryValid"]) as {
+    ...(mapGetters(["user", "isValidAddressHistory"]) as {
       user: () => User;
-      isAddressHistoryValid: () => boolean;
+      isValidAddressHistory: () => boolean;
     }),
   },
 });
@@ -29,8 +29,7 @@ export default Vue.extend({
         <TextComponent
           :text="`Welcome Back ${user.firstName}`"
           type="h1"
-          classes="text-primary text-black"
-          style="color: black"
+          classes="text-primary"
         />
       </template>
       <template v-slot:subtitle>
@@ -45,11 +44,11 @@ export default Vue.extend({
       </template>
       <!-- Disables button if last address in list is not greater than 3 years. -->
       <template v-slot:submit>
-        <p v-if="!isAddressHistoryValid" class="text-danger">
+        <p v-if="!isValidAddressHistory" class="text-danger">
           The last address in your history must be at least 3 years old.
         </p>
         <SubmitComponent
-          :isButtonDisabled="!isAddressHistoryValid"
+          :isButtonDisabled="!isValidAddressHistory"
           isFormSubmission
         />
       </template>
