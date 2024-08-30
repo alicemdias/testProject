@@ -5,6 +5,7 @@ import { Address } from "@/types";
 import { mapGetters } from "vuex";
 import InputComponent from "@/components/input.vue";
 export default Vue.extend({
+  // Name of the component
   name: "AddressComponent",
   components: {
     InputComponent,

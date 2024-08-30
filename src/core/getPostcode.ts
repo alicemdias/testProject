@@ -12,7 +12,14 @@ export async function getPostcode(
     const data = await response.json();
     return [data.result || [], null];
   } catch (error) {
-    console.error("Error fetching postcodes:", error);
-    return [null, new Error("Unable to retrieve postcodes")];
+    // Log the error details to the console for debugging purposes
+    console.error("Failed to retrieve postcode suggestions:", error);
+    // Return null for the result and a descriptive error message
+    return [
+      null,
+      new Error(
+        "Could not fetch postcode suggestions at this time. Please try again later."
+      ),
+    ];
   }
 }

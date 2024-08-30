@@ -7,10 +7,12 @@ import { mapActions, mapGetters } from "vuex";
 export default Vue.extend({
   name: "SubmitComponent",
   props: {
+    // Determines if the submit button should be disabled
     isButtonDisabled: {
       type: Boolean,
       default: false,
     },
+    // Indicates if the form is currently being submitted
     isFormSubmission: {
       type: Boolean,
       default: false,
@@ -18,71 +20,83 @@ export default Vue.extend({
   },
   data() {
     return {
+      // Strings to store error, success and ipError messages
       errorMsg: "",
       successMsg: "",
       ipErrorMsg: ",",
     };
   },
   computed: {
+    // Maps Vuex getters to computed properties in this component
+    // Gets the current user, addresses objects and check if the address history is valid
     ...mapGetters(["user", "addresses", "isAddressHistoryValid"]),
   },
   methods: {
+    // Maps Vuex actions to methods in this component
     ...mapActions(["createClaimAction"]),
+    // Resets the address form by committing the 'resetAddress' mutation
     clearForm() {
       this.$store.commit("resetAddress");
     },
-    //Validate block - no empty "required" fields
+    // Validates that all addresses have line1, postcode, and dateMovedIn
     isValid(): boolean {
       return this.addresses.every(
         (address: Address) =>
           address.line1 && address.postcode && address.dateMovedIn
       );
     },
-    //Call to handle any submit types
+    // Handles button click; either submits the form or emits a click event
     handleClick() {
       if (this.isFormSubmission) {
-        this.submitForm(); //submit form event
+        // Calls submitForm method if it's a form submission
+        this.submitForm();
       } else {
-        this.$emit("click"); //click event
+        // Emits a click event if not a form submission
+        this.$emit("click");
       }
     },
     async submitForm() {
-      //Reset the error and success messages
+      // Clear any existing messages
       this.errorMsg = "";
       this.successMsg = "";
       this.ipErrorMsg = "";
-      //Check for block validation - if unsuccessful, update error message
+      // Validate the form fields before submitting
       if (!this.isValid()) {
-        this.errorMsg = "Please fill in all required fields.";
-        return;
+        this.errorMsg =
+          "All fields marked with an asterisk (*) are required. Please complete them before submitting.";
+        return; // Stop the submission if validation fails
       }
       try {
-        //Define the parameters for the createClaim function
+        // Retrieve the user ID from the Vuex store
         const userId = this.user.id;
+        // Prepare the claim data to be submitted
         const claimData = { addresses: this.addresses };
+        // Attempt to retrieve the user's IP address
         const [creationIpAddress, ipErrorMsg] = await getUserIpAddress();
-        //If unable to retrieve IP address, log the error but proceed with submitting the claim to not hinder the user's experience.
-        //If IP address is required, a return can be placed in the if statement to prevent submission and an error message displayed for the user to try again.
+        // Handle any errors in retrieving the IP address
         if (ipErrorMsg) {
           this.ipErrorMsg =
-            "Unable to retrieve IP address. The claim will be submitted without it.";
+            "IP address could not be retrieved. Your claim will be submitted without this information.";
         }
+        // Attempt to create a new claim with the provided data
         const [newClaim, error] = await createClaim(
           userId,
           creationIpAddress || "IP not available",
           claimData
         );
+        // Handle any errors that occurred during claim creation
         if (error) {
           this.errorMsg =
-            "There was an error submitting your address history. Please try again.";
+            "We encountered an issue while submitting your address history. Please try again.";
         } else {
+          // Clear the form upon successful submission
           this.clearForm();
-          this.successMsg =
-            "Your address history has been submitted successfully!";
-          return newClaim;
+          this.successMsg = "Submission successfull!";
+          return newClaim; // Return the newly created claim
         }
       } catch (error) {
-        this.errorMsg = "An unexpected error occurred. Please try again.";
+        // Catch any unexpected errors during the submission process
+        this.errorMsg = "Something went wrong. Please try submitting again.";
       }
     },
   },
