@@ -5,7 +5,7 @@ import { mapGetters } from "vuex";
 import { getPostcode } from "@/core/getPostcode";
 import { Address } from "@/types";
 export default Vue.extend({
-  name: "FormComponent",
+  name: "AddressComponent",
   //Respecting PascalCase
   components: {
     InputComponent,

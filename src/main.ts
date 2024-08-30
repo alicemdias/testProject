@@ -9,7 +9,7 @@ import SubmitComponent from "./components/submit.vue";
 import FormView from "@/views/FormView.vue";
 import "bootstrap/dist/css/bootstrap.css";
 import InputComponent from "./components/input.vue";
-import addressComponent from "./components/address.vue";
+import AddressComponent from "./components/address.vue";
 import MainView from "@/views/MainView.vue";
 
 Vue.config.productionTip = false;
@@ -22,7 +22,7 @@ new Vue({
   components: {
     App,
     InputComponent,
-    addressComponent,
+    AddressComponent,
     FormComponent,
     TextComponent,
     SubmitComponent,
