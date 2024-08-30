@@ -105,7 +105,7 @@ export default Vue.extend({
     <b-button
       @click="addEntry"
       v-if="needMoreAddresses && !isAddressHistoryValid"
-      class="float-end"
+      class="float-end btn-secondary"
       >Add Address</b-button
     >
   </b-container>
