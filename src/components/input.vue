@@ -48,7 +48,9 @@ export default Vue.extend({
 </script>
 <template>
   <div>
+    <!-- Form group label that displays the text that will be shown as the label.-->
     <b-form-group :for="name">{{ label }}</b-form-group>
+    <!-- Input field -->
     <b-form-input
       :type="type"
       :value="value"
@@ -58,7 +60,7 @@ export default Vue.extend({
       :required="required"
       autocomplete="off"
     />
-    <!-- Autocomplete for postcode suggestions - optional -->
+    <!-- Autocomplete postcode -->
     <datalist id="postcode-options" v-if="showOptions">
       <option v-for="option in options" :key="option" :value="option">
         {{ option }}
