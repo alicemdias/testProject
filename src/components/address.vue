@@ -67,38 +67,40 @@ export default Vue.extend({
       :key="index"
       class="border p-3 rounded bg-dark text-white shadow-lg mb-4"
     >
-      <InputComponent
-        type="text"
-        v-model="address.line1"
-        label="Address Line 1"
-        name="line1"
-        @input="updateAddress(index, { ...address, line1: $event })"
-        :required="true"
-        class="mb-3"
-      />
-      <InputComponent
-        type="text"
-        v-model="address.postcode"
-        label="Postcode"
-        name="postcode"
-        @input="updatePostcode(index, $event)"
-        :required="true"
-        :options="postcodeOptions[index]"
-        :showOptions="true"
-        class="mb-3"
-      />
-      <InputComponent
-        type="date"
-        v-model="address.dateMovedIn"
-        label="Date Moved In"
-        name="dateMovedIn"
-        @input="updateAddress(index, { ...address, dateMovedIn: $event })"
-        :required="true"
-        class="mb-3"
-      />
-      <b-button @click="removeEntry(index)" v-if="addresses.length > 1"
-        >Remove Address</b-button
-      >
+      <div class="inner-content">
+        <InputComponent
+          type="text"
+          v-model="address.line1"
+          label="Address Line 1"
+          name="line1"
+          @input="updateAddress(index, { ...address, line1: $event })"
+          :required="true"
+          class="mb-3"
+        />
+        <InputComponent
+          type="text"
+          v-model="address.postcode"
+          label="Postcode"
+          name="postcode"
+          @input="updatePostcode(index, $event)"
+          :required="true"
+          :options="postcodeOptions[index]"
+          :showOptions="true"
+          class="mb-3"
+        />
+        <InputComponent
+          type="date"
+          v-model="address.dateMovedIn"
+          label="Date Moved In"
+          name="dateMovedIn"
+          @input="updateAddress(index, { ...address, dateMovedIn: $event })"
+          :required="true"
+          class="mb-3"
+        />
+        <b-button @click="removeEntry(index)" v-if="addresses.length > 1"
+          >Remove Address</b-button
+        >
+      </div>
     </div>
     <b-button
       @click="addEntry"
