@@ -7,11 +7,53 @@ Vue.use(Vuex);
 
 export default new Vuex.Store<State>({
   state: {
-    //Storing in global store to allow multiple components to have access to these states
+    // Stores the current user object. Initially set to null until the user is authenticated.
     user: null,
+    // List of addresses associated with the user. Initially contains a single empty address object.
     addresses: [{ line1: "", postcode: "", dateMovedIn: "" }] as Address[],
+    // List of claims associated with the user. Initially empty until claims are loaded or created.
     claims: [] as Claim[],
+    // Stores any error messages related to user operations. Initially empty.
     userError: "",
+  },
+  mutations: {
+    // Sets the current user object
+    setUser(state: State, user: User) {
+      state.user = user;
+    },
+    // Sets an error message for user operations
+    setUserError(state: State, errorMessage: string) {
+      state.userError = errorMessage;
+    },
+    // Clears any existing user error message
+    clearUserError(state: State) {
+      state.userError = "";
+    },
+    // Adds a new address to the addresses list
+    addAddress(state: State, address: Address) {
+      state.addresses.push(address);
+    },
+    // Removes an address by its index from the addresses list
+    removeAddress(state: State, index: number) {
+      if (index >= 0 && index < state.addresses.length) {
+        state.addresses.splice(index, 1);
+      }
+    },
+    // Updates an address at a specific index in the addresses list
+    updateAddress(state: State, payload: { index: number; address: Address }) {
+      const { index, address } = payload;
+      if (index >= 0 && index < state.addresses.length) {
+        Vue.set(state.addresses, index, address);
+      }
+    },
+    // Resets the addresses list to a single empty address
+    resetAddress(state: State) {
+      state.addresses = [{ line1: "", postcode: "", dateMovedIn: "" }];
+    },
+    // Adds a new claim to the claims list
+    setClaim(state: State, claim: Claim) {
+      state.claims.push(claim);
+    },
   },
   getters: {
     user(state): User | null {
@@ -35,35 +77,6 @@ export default new Vuex.Store<State>({
       const threeYearsAgo = new Date();
       threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3);
       return lastDate <= threeYearsAgo;
-    },
-  },
-  mutations: {
-    setUser(state, user: User) {
-      state.user = user;
-    },
-    setUserError(state, errorMessage: string) {
-      state.userError = errorMessage;
-    },
-    clearUserError(state) {
-      state.userError = "";
-    },
-    addAddress(state, address: Address) {
-      state.addresses.push(address);
-    },
-    removeAddress(state, index: number) {
-      state.addresses.splice(index, 1);
-    },
-    updateAddress(
-      state,
-      { index, address }: { index: number; address: Address }
-    ) {
-      Vue.set(state.addresses, index, address);
-    },
-    resetAddress(state) {
-      state.addresses = [{ line1: "", postcode: "", dateMovedIn: "" }];
-    },
-    setClaim(state, claim: Claim) {
-      state.claims.push(claim);
     },
   },
   actions: {
@@ -94,5 +107,4 @@ export default new Vuex.Store<State>({
       }
     },
   },
-  modules: {},
 });
