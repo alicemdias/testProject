@@ -20,7 +20,7 @@ export default new Vuex.Store<State>({
     addresses(state): Address[] {
       return state.addresses;
     },
-    needMoreAddresses(state): boolean {
+    anotherAddress(state): boolean {
       return state.addresses.length < 3;
     },
     //Method that checks if the address history is valid - either greater than 3 years OR 3 addresses

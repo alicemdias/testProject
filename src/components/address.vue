@@ -17,11 +17,11 @@ export default Vue.extend({
   computed: {
     ...(mapGetters([
       "addresses",
-      "needMoreAddresses",
+      "anotherAddress",
       "isAddressHistoryValid",
     ]) as {
       addresses: () => Address[];
-      needMoreAddresses: () => boolean;
+      anotherAddress: () => boolean;
       isAddressHistoryValid: () => boolean;
     }),
   },
@@ -104,7 +104,7 @@ export default Vue.extend({
     </div>
     <b-button
       @click="addEntry"
-      v-if="needMoreAddresses && !isAddressHistoryValid"
+      v-if="anotherAddress && !isAddressHistoryValid"
       class="float-end btn-secondary"
       >Add Address</b-button
     >

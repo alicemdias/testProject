@@ -37,7 +37,7 @@ export default Vue.extend({
         <TextComponent
           text="Please share your address history for the last 3 years"
           type="h4"
-          classes="text-info"
+          classes="text-dark"
         />
       </template>
       <template v-slot:question>

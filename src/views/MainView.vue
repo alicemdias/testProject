@@ -59,7 +59,7 @@ export default Vue.extend({
       </template>
       <template v-slot:subtitle>
         <TextComponent
-          text="To continue to your onboarding form, please provide your User ID:"
+          text="Provide User ID to continue:"
           type="h5"
           classes="text-secondary"
         />
@@ -84,9 +84,5 @@ export default Vue.extend({
         />
       </template>
     </FormComponent>
-    <p class="text-center">
-      If you do not have access to your User ID, please email
-      support@claimsgate.co.uk
-    </p>
   </div>
 </template>
