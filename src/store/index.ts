@@ -24,7 +24,7 @@ export default new Vuex.Store<State>({
       return state.addresses.length < 3;
     },
     //Method that checks if the address history is valid - either greater than 3 years OR 3 addresses
-    isValidAddressHistory(state): boolean {
+    isAddressHistoryValid(state): boolean {
       if (state.addresses.length === 0) return false;
       //Validation for address length
       if (state.addresses.length > 2) return true;

@@ -1,9 +1,9 @@
 <script lang="ts">
 import Vue from "vue";
-import InputComponent from "@/components/input.vue";
-import { mapGetters } from "vuex";
 import { getPostcode } from "@/core/getPostcode";
 import { Address } from "@/types";
+import { mapGetters } from "vuex";
+import InputComponent from "@/components/input.vue";
 export default Vue.extend({
   name: "AddressComponent",
   components: {
@@ -18,11 +18,11 @@ export default Vue.extend({
     ...(mapGetters([
       "addresses",
       "needMoreAddresses",
-      "isValidAddressHistory",
+      "isAddressHistoryValid",
     ]) as {
       addresses: () => Address[];
       needMoreAddresses: () => boolean;
-      isValidAddressHistory: () => boolean;
+      isAddressHistoryValid: () => boolean;
     }),
   },
   methods: {
@@ -102,7 +102,7 @@ export default Vue.extend({
     </div>
     <b-button
       @click="addEntry"
-      v-if="needMoreAddresses && !isValidAddressHistory"
+      v-if="needMoreAddresses && !isAddressHistoryValid"
       class="float-end"
       >Add Address</b-button
     >
