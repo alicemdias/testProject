@@ -16,6 +16,30 @@ export default new Vuex.Store<State>({
     // Stores any error messages related to user operations. Initially empty.
     userError: "",
   },
+  getters: {
+    user(state): User | null {
+      return state.user;
+    },
+    addresses(state): Address[] {
+      return state.addresses;
+    },
+    anotherAddress(state): boolean {
+      return state.addresses.length < 3;
+    },
+    //Method that checks if the address history is valid - either greater than 3 years OR 3 addresses
+    isAddressHistoryValid(state): boolean {
+      if (state.addresses.length === 0) return false;
+      //Validation for address length
+      if (state.addresses.length > 2) return true;
+
+      //Validation for address date > 3 years
+      const lastAddress = state.addresses[state.addresses.length - 1];
+      const lastDate = new Date(lastAddress.dateMovedIn);
+      const threeYearsAgo = new Date();
+      threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3);
+      return lastDate <= threeYearsAgo;
+    },
+  },
   mutations: {
     // Sets the current user object
     setUser(state: State, user: User) {
@@ -53,30 +77,6 @@ export default new Vuex.Store<State>({
     // Adds a new claim to the claims list
     setClaim(state: State, claim: Claim) {
       state.claims.push(claim);
-    },
-  },
-  getters: {
-    user(state): User | null {
-      return state.user;
-    },
-    addresses(state): Address[] {
-      return state.addresses;
-    },
-    anotherAddress(state): boolean {
-      return state.addresses.length < 3;
-    },
-    //Method that checks if the address history is valid - either greater than 3 years OR 3 addresses
-    isAddressHistoryValid(state): boolean {
-      if (state.addresses.length === 0) return false;
-      //Validation for address length
-      if (state.addresses.length > 2) return true;
-
-      //Validation for address date > 3 years
-      const lastAddress = state.addresses[state.addresses.length - 1];
-      const lastDate = new Date(lastAddress.dateMovedIn);
-      const threeYearsAgo = new Date();
-      threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3);
-      return lastDate <= threeYearsAgo;
     },
   },
   actions: {

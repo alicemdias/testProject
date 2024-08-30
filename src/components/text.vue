@@ -10,6 +10,7 @@ export default Vue.extend({
     type: {
       type: String,
       required: true,
+      // Validates that the type is one of the allowed heading levels
       validator(value: string) {
         return ["h1", "h2", "h3", "h4", "h5", "h6"].includes(value);
       },

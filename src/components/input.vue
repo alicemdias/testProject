@@ -3,24 +3,29 @@ import Vue from "vue";
 export default Vue.extend({
   name: "InputComponent",
   props: {
+    // The name attribute for the input field, used for form submission.
     name: {
       type: String,
       required: true,
     },
-    label: {
-      type: String,
-      required: true,
-    },
-    value: {
-      type: String,
-      required: true,
-    },
+    // The type of input field. Validates to ensure it's either 'text' or 'date'.
     type: {
       type: String,
       required: true,
       validator(value: string) {
+        // Ensures that the type is one of the allowed input types
         return ["text", "date"].includes(value);
       },
+    },
+    // The current value of the input field. It is a required prop.
+    value: {
+      type: String,
+      required: true,
+    },
+    // The label to be displayed next to the input field.
+    label: {
+      type: String,
+      required: true,
     },
     classes: {
       type: String,
