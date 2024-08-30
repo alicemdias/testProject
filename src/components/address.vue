@@ -70,15 +70,16 @@ export default Vue.extend({
       <div class="inner-content">
         <InputComponent
           type="text"
+          class="mb-4"
           v-model="address.line1"
           label="Address Line 1"
           name="line1"
           @input="updateAddress(index, { ...address, line1: $event })"
           :required="true"
-          class="mb-3"
         />
         <InputComponent
           type="text"
+          class="mb-4"
           v-model="address.postcode"
           label="Postcode"
           name="postcode"
@@ -86,16 +87,15 @@ export default Vue.extend({
           :required="true"
           :options="postcodeOptions[index]"
           :showOptions="true"
-          class="mb-3"
         />
         <InputComponent
           type="date"
+          class="mb-4"
           v-model="address.dateMovedIn"
           label="Date Moved In"
           name="dateMovedIn"
           @input="updateAddress(index, { ...address, dateMovedIn: $event })"
           :required="true"
-          class="mb-3"
         />
         <b-button @click="removeEntry(index)" v-if="addresses.length > 1"
           >Remove Address</b-button
