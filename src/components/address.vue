@@ -26,7 +26,8 @@ export default Vue.extend({
     }),
   },
   methods: {
-    addEntry() {
+    //The block should not let the form submit if the user has not provided more than 3 years of address history from the time of submission.
+    addEntry() { 
       const nextAddress = { line1: "", postcode: "", dateMovedIn: "" };
       this.$store.commit("addAddress", nextAddress);
     },
@@ -39,17 +40,17 @@ export default Vue.extend({
     ) {
       this.$store.commit("updateAddress", { index, address });
     },
-    //postcode requires own update method due to autocompletion from API
+    //The postcode input should support autocomplete using an api from https://postcodes.io/ to improve the user experience.
     async updatePostcode(index: number, postcode: string) {
       this.postcodeAutocomplete(postcode, index);
       this.updateAddress(index, { ...this.addresses[index], postcode });
     },
     async postcodeAutocomplete(postcode: string, index: number) {
       if (!postcode.trim()) {
-        // If postcode is empty or only whitespace, clear the options and return
         this.$set(this.postcodeOptions, index, []);
         return;
       }
+      //The block should prevent form submission if an address has not been entered.
       const [results, error] = await getPostcode(postcode);
       if (error) {
         console.error(error);
@@ -69,31 +70,31 @@ export default Vue.extend({
     >
       <div class="inner-content">
         <InputComponent
+          name="line1"
           type="text"
           class="mb-4"
           v-model="address.line1"
           label="Address Line 1"
-          name="line1"
           @input="updateAddress(index, { ...address, line1: $event })"
           :required="true"
         />
         <InputComponent
+          name="postcode"
           type="text"
           class="mb-4"
           v-model="address.postcode"
           label="Postcode"
-          name="postcode"
           @input="updatePostcode(index, $event)"
           :required="true"
           :options="postcodeOptions[index]"
           :showOptions="true"
         />
         <InputComponent
+          name="dateMovedIn"
           type="date"
           class="mb-4"
           v-model="address.dateMovedIn"
           label="Date Moved In"
-          name="dateMovedIn"
           @input="updateAddress(index, { ...address, dateMovedIn: $event })"
           :required="true"
         />

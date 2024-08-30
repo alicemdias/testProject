@@ -5,7 +5,7 @@ export default Vue.extend({
 });
 </script>
 <template>
-  <div class="container mt-4 mb-4">
+  <div class="container py-4">
     <div class="row mb-4">
       <div class="col">
         <slot name="title"></slot>
