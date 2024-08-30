@@ -27,7 +27,7 @@ export default Vue.extend({
   },
   methods: {
     //The block should not let the form submit if the user has not provided more than 3 years of address history from the time of submission.
-    addEntry() { 
+    addEntry() {
       const nextAddress = { line1: "", postcode: "", dateMovedIn: "" };
       this.$store.commit("addAddress", nextAddress);
     },
