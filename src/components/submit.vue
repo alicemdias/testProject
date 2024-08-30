@@ -102,16 +102,28 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style scoped>
+.text-danger {
+  color: red;
+}
+
+.text-success {
+  color: green;
+}
+</style>
+
 <template>
   <div>
-    <p v-if="errorMsg" class="text-danger">{{ errorMsg }}</p>
+    <p v-if="errorMsg" class="text-danger" role="alert">{{ errorMsg }}</p>
     <b-button
       @click="handleClick"
       variant="primary"
       :disabled="isButtonDisabled"
+      aria-disabled="isButtonDisabled"
     >
       Submit
     </b-button>
-    <p v-if="successMsg" class="text-success">{{ successMsg }}</p>
+    <p v-if="successMsg" class="text-success" role="status">{{ successMsg }}</p>
   </div>
 </template>

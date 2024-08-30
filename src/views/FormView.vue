@@ -15,7 +15,12 @@ export default Vue.extend({
     AddressComponent,
   },
   computed: {
-    ...(mapGetters(["user", "isAddressHistoryValid"]) as {
+    ...(mapGetters({
+      // Maps the `user` getter from Vuex to a local computed property named `user`.
+      user: "user",
+      // Maps the `isAddressHistoryValid` getter from Vuex to a local computed property named `isAddressHistoryValid`.
+      isAddressHistoryValid: "isAddressHistoryValid",
+    }) as {
       user: () => User;
       isAddressHistoryValid: () => boolean;
     }),
@@ -44,6 +49,7 @@ export default Vue.extend({
         <AddressComponent />
       </template>
       <template v-slot:submit>
+        <!-- Conditional rendering for the error message based on the validity of the address history -->
         <p v-if="!isAddressHistoryValid" class="text-danger">
           The last address you provide must be from at least 3 years prior
         </p>

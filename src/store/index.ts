@@ -24,20 +24,26 @@ export default new Vuex.Store<State>({
       return state.addresses;
     },
     anotherAddress(state): boolean {
-      return state.addresses.length < 3;
+      const maxAddresses = 3; // Maximum number of addresses allowed
+      return state.addresses.length < maxAddresses;
     },
-    //Method that checks if the address history is valid - either greater than 3 years OR 3 addresses
     isAddressHistoryValid(state): boolean {
-      if (state.addresses.length === 0) return false;
-      //Validation for address length
-      if (state.addresses.length > 2) return true;
-
-      //Validation for address date > 3 years
+      const minimumAddressesForValidity = 3; // Minimum number of addresses needed for automatic validity
+      // If the user has 3 or more addresses, the address history is automatically valid
+      if (state.addresses.length >= minimumAddressesForValidity) {
+        return true;
+      }
+      // If there are no addresses, return false (invalid)
+      if (state.addresses.length === 0) {
+        return false;
+      }
+      // Check the date of the most recent address
       const lastAddress = state.addresses[state.addresses.length - 1];
-      const lastDate = new Date(lastAddress.dateMovedIn);
-      const threeYearsAgo = new Date();
-      threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3);
-      return lastDate <= threeYearsAgo;
+      const lastDateMovedIn = new Date(lastAddress.dateMovedIn);
+      const dateThreeYearsAgo = new Date();
+      dateThreeYearsAgo.setFullYear(dateThreeYearsAgo.getFullYear() - 3);
+      // The address history is valid if the last address is from at least 3 years ago
+      return lastDateMovedIn <= dateThreeYearsAgo;
     },
   },
   mutations: {
