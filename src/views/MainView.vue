@@ -53,7 +53,8 @@ export default Vue.extend({
         <TextComponent
           :text="`Welcome to ClaimsGate`"
           type="h1"
-          classes="text-primary"
+          classes="text-black"
+          style="color: black"
         />
       </template>
       <template v-slot:subtitle>
