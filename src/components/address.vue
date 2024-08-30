@@ -65,7 +65,7 @@ export default Vue.extend({
     <div
       v-for="(address, index) in addresses"
       :key="index"
-      class="border p-3 rounded-pill bg-dark text-white shadow-lg mb-4"
+      class="border p-3 rounded bg-dark text-white shadow-lg mb-4"
     >
       <InputComponent
         type="text"
