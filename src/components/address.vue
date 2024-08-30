@@ -5,7 +5,7 @@ import { mapGetters } from "vuex";
 import { getPostcode } from "@/core/getPostcode";
 import { Address } from "@/types";
 export default Vue.extend({
-  name: "AddressFormComponent",
+  name: "FormComponent",
   //Respecting PascalCase
   components: {
     AddressInput,
@@ -70,7 +70,7 @@ export default Vue.extend({
       :key="index"
       class="border p-3 rounded shadow-sm mb-4"
     >
-      <AddressInput
+      <InputComponent
         type="text"
         v-model="address.line1"
         label="Address Line 1"
