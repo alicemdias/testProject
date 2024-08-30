@@ -1,6 +1,6 @@
 <script lang="ts">
 import Vue from "vue";
-import AddressInput from "@/components/input.vue";
+import InputComponent from "@/components/input.vue";
 import { mapGetters } from "vuex";
 import { getPostcode } from "@/core/getPostcode";
 import { Address } from "@/types";
@@ -8,7 +8,7 @@ export default Vue.extend({
   name: "FormComponent",
   //Respecting PascalCase
   components: {
-    AddressInput,
+    InputComponent,
   },
   data() {
     return {
@@ -79,7 +79,7 @@ export default Vue.extend({
         :required="true"
         class="mb-3"
       />
-      <AddressInput
+      <InputComponent
         type="text"
         v-model="address.postcode"
         label="Postcode"
@@ -90,7 +90,7 @@ export default Vue.extend({
         :showOptions="true"
         class="mb-3"
       />
-      <AddressInput
+      <InputComponent
         type="date"
         v-model="address.dateMovedIn"
         label="Date Moved In"
