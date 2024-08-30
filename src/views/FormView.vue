@@ -36,7 +36,7 @@ export default Vue.extend({
       <template v-slot:subtitle>
         <TextComponent
           text="Please provide you address history for the past 3 years"
-          type="h2"
+          type="h3"
           classes="text-secondary"
         />
       </template>
