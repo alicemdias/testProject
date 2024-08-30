@@ -49,7 +49,7 @@ export default Vue.extend({
 <template>
   <!-- Create a container so the background can be dark-->
   <b-container>
-    <div>
+    <div class="border p-3 rounded bg-dark text-white shadow-lg mb-4">
       <!-- Form group label that displays the text that will be shown as the label.-->
       <b-form-group :for="name">{{ label }}</b-form-group>
       <!-- Input field -->
