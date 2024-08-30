@@ -35,18 +35,17 @@ export default Vue.extend({
       </template>
       <template v-slot:subtitle>
         <TextComponent
-          text="Please provide you address history for the past 3 years"
-          type="h3"
-          classes="text-secondary"
+          text="Please share your address history for the last 3 years"
+          type="h4"
+          classes="text-info"
         />
       </template>
       <template v-slot:question>
         <AddressComponent />
       </template>
-      <!-- Disables button if last address in list is not greater than 3 years. -->
       <template v-slot:submit>
         <p v-if="!isAddressHistoryValid" class="text-danger">
-          The last address in your history must be at least 3 years old.
+          The last address you provide must be from at least 3 years prior
         </p>
         <SubmitComponent
           :isButtonDisabled="!isAddressHistoryValid"
