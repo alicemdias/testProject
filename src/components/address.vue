@@ -12,7 +12,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      postCodeOptions: [],
+      postcodeOptions: [],
     };
   },
   computed: {
@@ -49,15 +49,16 @@ export default Vue.extend({
     async postcodeAutocomplete(postcode: string, index: number) {
       if (!postcode.trim()) {
         // If postcode is empty or only whitespace, clear the options and return
-        this.$set(this.postCodeOptions, index, []);
+        this.$set(this.postcodeOptions, index, []);
         return;
       }
       const [results, error] = await getPostcode(postcode);
       if (error) {
+        // eslint-disable-next-line
         console.error(error);
         return;
       }
-      this.$set(this.postCodeOptions, index, results || []);
+      this.$set(this.postcodeOptions, index, results || []);
     },
   },
 });
@@ -85,7 +86,7 @@ export default Vue.extend({
         name="postcode"
         @input="updatePostcode(index, $event)"
         :required="true"
-        :options="postCodeOptions[index]"
+        :options="postcodeOptions[index]"
         :showOptions="true"
         class="mb-3"
       />

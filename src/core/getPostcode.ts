@@ -12,7 +12,8 @@ export async function getPostcode(
     const data = await response.json();
     return [data.result || [], null];
   } catch (error) {
-    console.error("Error fetching postcodes:", error); // Add more logging
+    // eslint-disable-next-line
+    console.error("Error fetching postcodes:", error);
     return [null, new Error("Unable to retrieve postcodes")];
   }
 }
