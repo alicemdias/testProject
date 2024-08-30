@@ -7,6 +7,8 @@ import SubmitComponent from "@/components/submit.vue";
 import { mapGetters, mapState } from "vuex";
 export default Vue.extend({
   name: "MainView",
+  // Registering child components that will be used within this component.
+  // Grouping related components for better maintainability and readability.
   components: {
     FormComponent,
     TextComponent,
@@ -15,43 +17,52 @@ export default Vue.extend({
   },
   data() {
     return {
+      // Stores the user ID, initially an empty string.
       userId: "",
     };
   },
   computed: {
+    // Using Vuex's mapState helper to map the userError state to a local computed property.
     ...mapState({
+      // The state is typed as 'any' for flexibility, but ideally, a specific type should be used for better type safety.
       userError: (state: any) => state.userError, // Accessing Vuex state directly
     }),
   },
   methods: {
     submitUserId() {
       if (this.userId.trim()) {
-        // Clear error before navigation
         this.$store.commit("clearUserError");
-        //Navigate to the FormView via the /:userId route.
+        // Navigate to the FormView route corresponding to the entered userId
         this.$router.replace({ path: `${this.userId}` });
+      } else {
+        // To handle cases where userId is empty
+        this.$store.commit(
+          "setUserError",
+          "User ID cannot be empty. Please enter a valid User ID."
+        );
       }
     },
   },
-  //Watches for the query parameter from the router to update error message
   watch: {
     "$route.query.userError": {
-      handler(newError) {
+      handler(newError: string) {
+        // Check if there is a new error in the query parameters
         if (newError) {
+          // Commit the new error message to the Vuex store
           this.$store.commit("setUserError", newError);
         }
       },
+      immediate: true, // Immediately invoke the handler with the current value of the watched expression
     },
   },
 });
 </script>
 <template>
   <div>
-    <!-- Home View: utilizes formComponent for user to enter UserId details. User is redirected to :/usedId page where user validation functionality is held -->
     <FormComponent>
       <template v-slot:title>
         <TextComponent
-          :text="`Welcome to ClaimsGate`"
+          :text="`ClaimsGate`"
           type="h1"
           classes="text-black"
           style="color: black"
