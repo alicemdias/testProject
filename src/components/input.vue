@@ -47,7 +47,10 @@ export default Vue.extend({
 });
 </script>
 <template>
-  <b-container class="border p-3 rounded bg-dark text-white shadow-lg mb-4">
+  <!-- Create a container so the background can be dark-->
+  <userId-container
+    class="border p-3 rounded bg-dark text-white shadow-lg mb-4"
+  >
     <div>
       <!-- Form group label that displays the text that will be shown as the label.-->
       <b-form-group :for="name">{{ label }}</b-form-group>
@@ -68,5 +71,5 @@ export default Vue.extend({
         </option>
       </datalist>
     </div>
-  </b-container>
+  </userId-container>
 </template>
